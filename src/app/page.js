@@ -53,7 +53,7 @@ export default function Home() {
 
   return (
     <main className="h-screen w-full bg-white flex flex-col justify-center items-center overflow-hidden">
-      <div className='text-black mx-[10vw] w-[80vw] h-[30vh] text-center overflow-y-scroll scroll-smooth'>
+      <div className='text-black mx-[10vw] w-[80vw] h-[30vh] text-center overflow-y-scroll scroll-smooth no-scrollbar'>
         {words.map((word, idx1) => (
           <div className='inline-block' key={idx1}>
             {word.map((char, idx2) => (
