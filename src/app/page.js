@@ -12,7 +12,8 @@ export default function Home() {
     animation.play();
   }
   
-  const audio = new Audio('/beep.mp3');
+  const dialoguePlaying = new Audio('/beep.mp3');
+  const dialogueComplete = new Audio('/dialoguecomplete.mp3');
 
   useEffect(() => {
     const wordArray = text.split(' ');
@@ -33,14 +34,17 @@ export default function Home() {
     const animatedElements = gsap.utils.toArray('.js-animateText');
     animation = gsap.from(animatedElements, {
       duration: 0.05,
+      opacity: 0,
       stagger: {
         each: 0.045,
         onStart: () => {
-          audio.currentTime = 0;
-          audio.play();
-        }
+          dialoguePlaying.currentTime = 0;
+          dialoguePlaying.play();
+        },
       },
-      opacity: 0,
+      onComplete: () => {
+        dialogueComplete.play();
+      },
     });
     animation.pause();
   }, [words]);
@@ -49,7 +53,7 @@ export default function Home() {
 
   return (
     <main className="h-screen w-full bg-white flex flex-col justify-center items-center overflow-hidden">
-      <div className='text-black mx-[10vw] w-[80vw] h-[30vh] text-center overflow-scroll scroll-smooth'>
+      <div className='text-black mx-[10vw] w-[80vw] h-[30vh] text-center overflow-y-scroll scroll-smooth'>
         {words.map((word, idx1) => (
           <div className='inline-block' key={idx1}>
             {word.map((char, idx2) => (
